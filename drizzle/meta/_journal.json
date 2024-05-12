@@ -1,0 +1,20 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1715497850718,
+      "tag": "0000_sweet_snowbird",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1715498601226,
+      "tag": "0001_opposite_bill_hollister",
+      "breakpoints": true
+    }
+  ]
+}
