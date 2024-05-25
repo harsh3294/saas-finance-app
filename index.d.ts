@@ -7,3 +7,7 @@ type NavButtonProp = {
   route: NavigationRouteProp;
   isActive?: boolean;
 };
+
+type ProviderProps = {
+  children: React.ReactNode;
+};

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ClerkProvider } from '@clerk/nextjs'
+import { ClerkProvider } from "@clerk/nextjs";
+import { QueryProvider } from "@/providers/query-provider";
 
 export const metadata: Metadata = {
   title: "SaaS Finance Manager",
@@ -14,9 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-    <html lang="en">
-      <body>{children}</body>
-    </html>
+      <html lang="en">
+        <body>
+          <QueryProvider>{children}</QueryProvider>
+        </body>
+      </html>
     </ClerkProvider>
   );
 }
