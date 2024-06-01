@@ -67,6 +67,11 @@ export const AccountForm = ({
                   {...field}
                 />
               </FormControl>
+              {form.formState.errors.name && (
+                <FormMessage className="text-destructive">
+                  {form.formState.errors.name.message}
+                </FormMessage>
+              )}
             </FormItem>
           )}
         />
