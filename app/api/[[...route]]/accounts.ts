@@ -246,5 +246,61 @@ const app = new Hono()
 
       return c.json({ data });
     }
+  )
+  .delete(
+    "/:id",
+    clerkMiddleware(),
+    zValidator(
+      "param",
+      z.object({
+        id: z.string().optional(),
+      })
+    ),
+    async (c) => {
+      const auth = await getAuth(c);
+
+      if (!auth?.userId) return c.json({ error: "Unauthorized" }, 401);
+
+      const { id } = c.req.valid("param");
+
+      if (!id) {
+        return c.json(
+          {
+            error: "Bad Request",
+          },
+          400
+        );
+      }
+
+      const [getExistingData] = await db
+        .select({
+          id: accounts.id,
+          name: accounts.name,
+        })
+        .from(accounts)
+        .where(and(eq(accounts.userId, auth.userId), eq(accounts.id, id)));
+
+      if (!getExistingData) {
+        return c.json(
+          {
+            error: "Not Found",
+          },
+          404
+        );
+      }
+
+      const [data] = await db
+        .delete(accounts)
+        .where(and(eq(accounts.userId, auth.userId), eq(accounts.id, id)))
+        .returning({
+          id: accounts.id,
+        });
+
+      if (!data) {
+        return c.json({ error: "Not Found" }, 404);
+      }
+
+      return c.json({ data });
+    }
   );
 export default app;
